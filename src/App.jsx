@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './components/Home.jsx'
-import Register from './components/register.jsx'
+import Register from './components/Register.jsx'
 
 
 function App() {
