@@ -1,9 +1,7 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useRef } from "react";
-import { useContext } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { AppContext } from "../App";
 import axios from "axios";
+import "./Users.css";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const { user } = useContext(AppContext);
@@ -19,7 +17,7 @@ export default function Users() {
   const [page, setPage] = useState(1);
   const [searchVal, setSearchVal] = useState("");
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(8);
   const [editId, setEditId] = useState();
   const API_URL = import.meta.env.VITE_API_URL;
   const fetchUsers = async () => {
@@ -137,12 +135,13 @@ export default function Users() {
     });
   };
   return (
-    <div>
-      <h2>User Management</h2>
-      {error}
-      <div>
-        <form ref={frmRef}>
+    <div className="users-container">
+      <h2 className="users-title">User Management</h2>
+      {error && <div className="users-error">{error}</div>}
+      <div className="users-form-section">
+        <form ref={frmRef} className="users-form">
           <input
+            className="users-input"
             name="firstName"
             value={form.firstName}
             type="text"
@@ -151,6 +150,7 @@ export default function Users() {
             required
           />
           <input
+            className="users-input"
             name="lastName"
             value={form.lastName}
             type="text"
@@ -159,6 +159,7 @@ export default function Users() {
             required
           />
           <input
+            className="users-input"
             name="email"
             value={form.email}
             type="text"
@@ -167,6 +168,7 @@ export default function Users() {
             required
           />
           <input
+            className="users-input"
             name="password"
             value={form.password}
             type="password"
@@ -175,6 +177,7 @@ export default function Users() {
             required
           />
           <select
+            className="users-input"
             name="role"
             value={form.role}
             required
@@ -184,68 +187,66 @@ export default function Users() {
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
-          {/* <input
-            name="role"
-            value={form.role}
-            type="text"
-            onChange={handleChange}
-            placeholder="Role"
-          /> */}
-
           {editId ? (
             <>
-              <button onClick={handleUpdate}>Update</button>
-              <button onClick={handleCancel}>Cancel</button>
+              <button className="users-btn update" onClick={handleUpdate}>Update</button>
+              <button className="users-btn cancel" onClick={handleCancel}>Cancel</button>
             </>
           ) : (
-            <button onClick={handleAdd}>Add</button>
+            <button className="users-btn add" onClick={handleAdd}>Add</button>
           )}
         </form>
       </div>
-      <div>
-        <input type="text" onChange={(e) => setSearchVal(e.target.value)} />
-        <button onClick={() => fetchUsers()}>Search</button>
+      <div className="users-search-section">
+        <input className="users-search-input" type="text" onChange={(e) => setSearchVal(e.target.value)} placeholder="Search users..." />
+        <button className="users-btn search" onClick={() => fetchUsers()}>Search</button>
       </div>
-      <div>
-        <table border="1">
+      <div className="users-table-section">
+        <table className="users-table">
           <thead>
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email Address</th>
               <th>Role</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          {users.map((value) => (
-            <tbody key={value._id}>
-              <tr>
+          <tbody>
+            {users.map((value) => (
+              <tr key={value._id}>
                 <td>{value.firstName}</td>
                 <td>{value.lastName}</td>
                 <td>{value.email}</td>
                 <td>{value.role}</td>
                 <td>
-                  <button onClick={() => handleEdit(value)}>Edit</button>
-                  <button onClick={() => handleDelete(value._id)}>
+                  <button className="users-btn edit" onClick={() => handleEdit(value)}>Edit</button>
+                  <button className="users-btn delete" onClick={() => handleDelete(value._id)}>
                     Delete
                   </button>
                 </td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+          </tbody>
         </table>
       </div>
-      <div>
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+      <div className="users-pagination">
+        <button
+          className="users-btn page users-pagination-btn prev"
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
           Previous
         </button>
-        Page {page} of {totalPages}
         <button
+          className="users-btn page users-pagination-btn next"
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
         >
           Next
         </button>
       </div>
+      <div className="users-page-info users-pagination-info">Page {page} of {totalPages}</div>
     </div>
   );
 }

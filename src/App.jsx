@@ -20,23 +20,25 @@ function App() {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState({});
   return (
-    <div className="App-Container">
+    <div className="app-root">
       <AppContext.Provider value={{ cart, setCart, user, setUser }}>
         <BrowserRouter>
           <Header />
-          <Routes>
-            <Route index element={<Product />} />
-            <Route path="login" element={<Login />} />
-             <Route path="profile" element={<Profile />} />
-            <Route path="register" element={<Register />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="order" element={<Order />} />
-            <Route path="admin" element={<Admin />}>
-              <Route index element={<Users />} />
-              <Route path="products" element={<Products />} />
-              <Route path="orders" element={<Orders />} />
-            </Route>
-          </Routes>
+          <div className="main-content">
+            <Routes>
+              <Route index element={<Product />} />
+              <Route path="login" element={<Login />} />
+               <Route path="profile" element={<Profile />} />
+              <Route path="register" element={<Register />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="order" element={<Order />} />
+              <Route path="admin" element={<Admin />}>
+                <Route index element={<Users />} />
+                <Route path="products" element={<Products />} />
+                <Route path="orders" element={<Orders />} />
+              </Route>
+            </Routes>
+          </div>
           <Footer />
         </BrowserRouter>
       </AppContext.Provider>

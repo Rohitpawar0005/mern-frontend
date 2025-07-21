@@ -1,0 +1,35 @@
+.admin-container {
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(40,40,40,0.10);
+  padding: 2.2rem 2.5rem 2.5rem 2.5rem;
+  font-family: 'Inter', 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.admin-nav-link {
+  color: #1976d2;
+  font-size: 1.13rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1.3rem;
+  border-radius: 22px;
+  background: #f6f6f6;
+  transition: background 0.18s, color 0.18s;
+}
+.admin-nav-link:hover, .admin-nav-link.active {
+  background: #1976d2;
+  color: #fff;
+}
+
+.admin-content {
+  margin-top: 1.5rem;
+} 

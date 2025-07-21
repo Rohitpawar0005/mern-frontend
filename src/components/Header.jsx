@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import App, { AppContext } from "../App";
 import "./Header.css";
@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <nav className="navbar-horizontal">
-      <div className="navbar-horizontal-title">MERN Frontend</div>
+      <div className="navbar-horizontal-title">MERNstore</div>
       <button
         className={`navbar-hamburger${menuOpen ? " open" : ""}`}
         onClick={handleMenuToggle}
@@ -24,15 +24,65 @@ export default function Header() {
         <span className="bar"></span>
       </button>
       <div className={`navbar-horizontal-links${menuOpen ? " show" : ""}`}>
-        <Link className="navbar-horizontal-link" to="/" onClick={handleLinkClick}>Home</Link>
-        <Link className="navbar-horizontal-link" to="/order" onClick={handleLinkClick}>MyOrder</Link>
-        <Link className="navbar-horizontal-link" to="/cart" onClick={handleLinkClick}>MyCart</Link>
-        {/* <Link className="navbar-horizontal-link" to="/admin">Admin</Link> */}
-        {user?.role === "admin" && <Link className="navbar-horizontal-link" to="/admin" onClick={handleLinkClick}>Admin</Link>}
+        <NavLink
+          className={({ isActive }) =>
+            "navbar-horizontal-link" + (isActive ? " active" : "")
+          }
+          to="/"
+          onClick={handleLinkClick}
+          end
+        >
+          Home
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            "navbar-horizontal-link cart-link" + (isActive ? " active" : "")
+          }
+          to="/cart"
+          onClick={handleLinkClick}
+        >
+          <span role="img" aria-label="cart">🛒</span> MyCart
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            "navbar-horizontal-link" + (isActive ? " active" : "")
+          }
+          to="/order"
+          onClick={handleLinkClick}
+        >
+          MyOrder
+        </NavLink>
+        {user?.role === "admin" && (
+          <NavLink
+            className={({ isActive }) =>
+              "navbar-horizontal-link" + (isActive ? " active" : "")
+            }
+            to="/admin"
+            onClick={handleLinkClick}
+          >
+            Admin
+          </NavLink>
+        )}
         {user?.token ? (
-          <Link className="navbar-horizontal-link" to="/profile" onClick={handleLinkClick}>Profile</Link>
+          <NavLink
+            className={({ isActive }) =>
+              "navbar-horizontal-link" + (isActive ? " active" : "")
+            }
+            to="/profile"
+            onClick={handleLinkClick}
+          >
+            Profile
+          </NavLink>
         ) : (
-          <Link className="navbar-horizontal-link" to="/login" onClick={handleLinkClick}>Login</Link>
+          <NavLink
+            className={({ isActive }) =>
+              "navbar-horizontal-link" + (isActive ? " active" : "")
+            }
+            to="/login"
+            onClick={handleLinkClick}
+          >
+            Login
+          </NavLink>
         )}
       </div>
     </nav>

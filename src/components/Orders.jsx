@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useContext } from "react";
 import { AppContext } from "../App";
-import { useFetcher } from "react-router-dom";
+import "./Orders.css";
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState();
   const [page, setPage] = useState(1);
-  const [limit,setLimit]= useState(3)
+  const [limit, setLimit] = useState(3);
   const [totalPages, setTotalPages] = useState(1);
   const [status, setStatus] = useState("");
   const { user } = useContext(AppContext);
@@ -29,11 +28,11 @@ export default function Orders() {
   };
   useEffect(() => {
     fetchOrders();
-  }, [status,page]);
+  }, [status, page]);
   const updateOrder = async (status, id) => {
     try {
       const url = `${API_URL}/api/orders/${id}`;
-      const result = await axios.patch(url, { status });
+      await axios.patch(url, { status });
       fetchOrders();
     } catch (err) {
       console.log(err);
@@ -41,48 +40,55 @@ export default function Orders() {
     }
   };
   return (
-    <div>
-      <h2>Order Management</h2>
-      <div>
-        <select onChange={(e) => setStatus(e.target.value)}>
+    <div className="orders-container">
+      <h2 className="orders-title">Order Management</h2>
+      {error && <div className="orders-error">{error}</div>}
+      <div className="orders-filter-section">
+        <select className="orders-filter-select" onChange={(e) => setStatus(e.target.value)} value={status}>
           <option value="">All</option>
-          <option value="Pending" >
-            Pending
-          </option>
+          <option value="Pending">Pending</option>
           <option value="completed">Completed</option>
           <option value="cancelled">Cancelled</option>
         </select>
-        {/* <button>Show</button> */}
       </div>
-      {orders &&
-        orders.map((order) => (
-          <li>
-            {order._id}-{order.orderValue}-{order.status}-
+      <ul className="orders-list">
+        {orders && orders.map((order) => (
+          <li className="orders-card" key={order._id}>
+            <div className="orders-row">
+              <span className="orders-id">{order._id}</span>
+              <span className={`orders-status badge ${order.status.toLowerCase()}`}>{order.status}</span>
+            </div>
+            <div className="orders-value">₹{order.orderValue}</div>
             {order.status === "Pending" && (
-              <>
-                <button onClick={() => updateOrder("cancelled", order._id)}>
+              <div className="orders-actions">
+                <button className="orders-btn cancel" onClick={() => updateOrder("cancelled", order._id)}>
                   Cancel
                 </button>
-                -
-                <button onClick={() => updateOrder("completed", order._id)}>
+                <button className="orders-btn complete" onClick={() => updateOrder("completed", order._id)}>
                   Complete
                 </button>
-              </>
+              </div>
             )}
           </li>
         ))}
-        <div>
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+      </ul>
+      <div className="orders-pagination">
+        <button
+          className="orders-btn page prev"
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
           Previous
         </button>
-        Page {page} of {totalPages}
         <button
+          className="orders-btn page next"
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
         >
           Next
         </button>
       </div>
+      <div className="orders-page-info">Page {page} of {totalPages}</div>
     </div>
   );
 }

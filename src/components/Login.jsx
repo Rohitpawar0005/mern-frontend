@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AppContext } from "../App";
+import "./Login.css";
 export default function Login() {
   const {user, setUser} = useContext(AppContext);
   const [error, setError] = useState();
@@ -21,28 +22,26 @@ export default function Login() {
     }
   };
   return (
-    <div>
-      <h2>Login</h2>
-      {error}
-      <p>
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
+      {error && <div className="login-error">{error}</div>}
+      <div className="login-form">
         <input
+          className="login-input"
           type="text"
           placeholder="Email Address"
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-      </p>
-      <p>
         <input
+          className="login-input"
           type="password"
           placeholder="Password"
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-      </p>
-      <p>
-        <button onClick={handleSubmit}>Submit</button>
-      </p>
-      <hr />
-      <Link to="/register">Create Account</Link>
+        <button className="login-btn" onClick={handleSubmit}>Submit</button>
+      </div>
+      <hr className="login-divider" />
+      <Link className="login-link" to="/register">Create Account</Link>
     </div>
   );
 }

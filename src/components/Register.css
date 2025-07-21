@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.register-container {
+  max-width: 400px;
+  margin: 3.5rem auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(40,40,40,0.10);
+  padding: 2.2rem 2.5rem 2.5rem 2.5rem;
+  font-family: 'Inter', 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.register-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #232f3e;
+  margin-bottom: 1.5rem;
+}
+
+.register-error {
+  color: #d32f2f;
+  background: #fff0f0;
+  border: 1px solid #f8d7da;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.register-input {
+  height: 44px;
+  font-size: 1.08rem;
+  border: 1.5px solid #bbb;
+  border-radius: 8px;
+  padding: 0 1.1rem;
+  outline: none;
+  transition: border 0.18s;
+  background: #f8fafc;
+}
+.register-input:focus {
+  border: 1.5px solid #1976d2;
+}
+
+.register-btn {
+  background: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 0;
+  font-size: 1.13rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  margin-top: 0.5rem;
+}
+.register-btn:hover, .register-btn:focus {
+  background: #388e3c;
+  color: #fff;
+}
+
+.register-divider {
+  margin: 1.5rem 0 1.1rem 0;
+  border: none;
+  border-top: 1.5px solid #e0e7ef;
+}
+
+.register-link {
+  display: block;
+  text-align: center;
+  color: #1976d2;
+  font-weight: 600;
+  font-size: 1.08rem;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.register-link:hover, .register-link:focus {
+  color: #1565c0;
+  text-decoration: underline;
+} 

@@ -4,7 +4,7 @@
   font-family: 'Poppins', 'Segoe UI', 'Roboto', Arial, sans-serif;
   background: #fff;
   box-shadow: 0 2px 12px rgba(40, 40, 40, 0.08);
-  padding: 0.7rem 2.5rem;
+  padding: 1.3rem 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,6 +49,15 @@
   box-shadow: 0 2px 8px rgba(35,47,62,0.08);
   text-decoration: none;
 }
+
+.navbar-horizontal-link.active {
+  background: #232f3e;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+  text-decoration: none;
+}
+
 
 /* Hamburger styles */
 .navbar-hamburger {

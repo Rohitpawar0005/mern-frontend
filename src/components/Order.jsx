@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { AppContext } from "../App";
+import "./Order.css";
 export default function Order() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { user } = useContext(AppContext);
@@ -23,37 +24,41 @@ export default function Order() {
   }, []);
 
   return (
-    <div>
-      <h3>My Orders</h3>
-      {orders &&
-        orders.map((order) => (
-          <div>
-            <p>OrderId:{order._id}</p>
-            <p>Order Value: {order.orderValue} </p>
-            <p>Status:{order.status}</p>
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              {order.items.map((item) => (
-                <tbody key={item._id}>
+    <div className="order-container">
+      <h3 className="order-title">My Orders</h3>
+      {error && <div className="order-error">{error}</div>}
+      <div className="order-list">
+        {orders &&
+          orders.map((order) => (
+            <div className="order-card" key={order._id}>
+              <div className="order-header-row">
+                <span className="order-id">Order ID: {order._id}</span>
+                <span className={`order-status order-status-${order.status?.toLowerCase()}`}>{order.status}</span>
+              </div>
+              <div className="order-value">Order Value: ₹{order.orderValue}</div>
+              <table className="order-table">
+                <thead>
                   <tr>
-                    <td>{item.productName}</td>
-                    <td>{item.price}</td>
-                    <td>{item.qty}</td>
-                    <td>{item.qty * item.price}</td>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
                   </tr>
+                </thead>
+                <tbody>
+                  {order.items.map((item) => (
+                    <tr key={item._id}>
+                      <td>{item.productName}</td>
+                      <td>₹{item.price}</td>
+                      <td>{item.qty}</td>
+                      <td>₹{item.qty * item.price}</td>
+                    </tr>
+                  ))}
                 </tbody>
-              ))}
-            </table>
-            <hr />
-          </div>
-        ))}
+              </table>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import "./Profile.css";
 export default function Profile() {
   const [profile, setProfile] = useState({});
   const { user, setUser } = useContext(AppContext);
@@ -14,7 +15,7 @@ export default function Profile() {
       const url = `${API_URL}/api/users/${user.id}/profile`;
       const result = await axios.get(url);
       setProfile(result.data);
-      console.log(profile);
+      // console.log(profile);
     } catch (err) {
       console.log(err);
       setError("Something went wrong");
@@ -32,10 +33,11 @@ export default function Profile() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const url = `${API_URL}/api/users/${profile._id}/profile`;
-      const result = await axios.patch(url, form);
+      await axios.patch(url, form);
       fetchProfile();
       setError("Data saved successfully.");
     } catch (err) {
@@ -44,42 +46,61 @@ export default function Profile() {
     }
   };
   return (
-    <div>
-      <h3>My Profile</h3>
-      <button onClick={logout}>Logout</button>
-      <p>
-        <input
-          name="firstName"
-          type="text"
-          onChange={handleChange}
-          defaultValue={profile.firstName}
-        />
-      </p>
-      <p>
-        <input
-          name="lastName"
-          type="text"
-          onChange={handleChange}
-          defaultValue={profile.lastName}
-        />
-      </p>
-      <p>
-        <input
-          name="email"
-          type="text"
-          onChange={handleChange}
-          defaultValue={profile.email}
-        />
-      </p>
-      <p>
-        <input
-          name="password"
-          type="password"
-          onChange={handleChange}
-          defaultValue={profile.password}
-        />
-      </p>
-      <button onClick={handleSubmit}>Update Profile</button>
+    <div className="profile-container">
+      <div className="profile-header-row">
+        <h3 className="profile-title">My Profile</h3>
+        <button className="profile-btn logout" type="button" onClick={logout}>Logout</button>
+      </div>
+      {error && <div className="profile-error">{error}</div>}
+      <form className="profile-form" onSubmit={handleSubmit}>
+        <div className="profile-form-row">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            className="profile-input"
+            name="firstName"
+            type="text"
+            onChange={handleChange}
+            defaultValue={profile.firstName}
+            id="firstName"
+          />
+        </div>
+        <div className="profile-form-row">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            className="profile-input"
+            name="lastName"
+            type="text"
+            onChange={handleChange}
+            defaultValue={profile.lastName}
+            id="lastName"
+          />
+        </div>
+        <div className="profile-form-row">
+          <label htmlFor="email">Email</label>
+          <input
+            className="profile-input"
+            name="email"
+            type="text"
+            onChange={handleChange}
+            defaultValue={profile.email}
+            id="email"
+          />
+        </div>
+        <div className="profile-form-row">
+          <label htmlFor="password">Password</label>
+          <input
+            className="profile-input"
+            name="password"
+            type="password"
+            onChange={handleChange}
+            defaultValue={profile.password}
+            id="password"
+          />
+        </div>
+        <div className="profile-form-actions">
+          <button className="profile-btn update" type="submit">Update Profile</button>
+        </div>
+      </form>
     </div>
   );
 }

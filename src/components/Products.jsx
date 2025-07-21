@@ -189,7 +189,7 @@ export default function Products() {
             <div className="product-info">
               <div className="product-name">{value.productName}</div>
               <div className="product-description">{value.description}</div>
-              <div className="product-price">${value.price}</div>
+              <div className="product-price">₹{value.price}</div>
             </div>
             <div className="product-actions">
               <button className="products-btn edit" onClick={() => handleEdit(value)}>Edit</button>
@@ -202,14 +202,14 @@ export default function Products() {
       </div>
       <div className="products-pagination">
         <button
-          className="products-btn nav"
+          className="products-btn nav prev"
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
         >
           Previous
         </button>
         <button
-          className="products-btn nav"
+          className="products-btn nav next"
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
         >
